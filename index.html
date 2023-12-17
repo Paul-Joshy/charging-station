@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Charging Station</title>
+  <script src="charging.js" defer></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f5f5f5;
+      margin: 0;
+      padding: 20px;
+    }
+    h1 {
+      text-align: center;
+      color: #333;
+    }
+    .container {
+      max-width: 500px;
+      margin: 0 auto;
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 5px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+    label {
+      display: block;
+      margin-bottom: 10px;
+      font-weight: bold;
+      color: #555;
+    }
+    input[type="text"] {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+    button {
+      margin-top: 20px;
+      background-color: #4CAF50;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #45a049;
+    }
+    p.result {
+      margin-top: 20px;
+      font-weight: bold;
+      color: #333;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Charging Station</h1>
+    <label for="history">Enter comma-separated values for vehicle history:</label>
+    <input type="text" id="history">
+    <label for="chargingPoints">Enter number of charging points:</label>
+    <input type="text" id="chargingPoints">
+    <button onclick="calculate()">Calculate</button>
+    <p class="result" id="result"></p>
+  </div>
+
+  <script>
+    function calculate() {
+      const historyInput = document.getElementById("history").value;
+      const chargingPointsInput = document.getElementById("chargingPoints").value;
+      const history = historyInput.split(",");
+      const chargingPoints = parseInt(chargingPointsInput);
+
+      const unchargedVehicles = getUnchargedVehicles(history, chargingPoints);
+      document.getElementById("result").textContent = "Number of vehicles not charged: " + unchargedVehicles;
+    }
+  </script>
+</body>
+</html>
+
