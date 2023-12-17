@@ -7,7 +7,7 @@ function getUnchargedVehicles(history, chargingPoints){
   let unchargedValue = 0;
 
 
-  if(!history.length){
+  if(!history.length || history[0] === ""){
     return 0;
   }
 
