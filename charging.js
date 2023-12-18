@@ -13,11 +13,19 @@ function getUnchargedVehicles(history, chargingPoints){
 
   history.map(v => {
 
+      // handle priority vehicles
+      if(priorityQueue.length){
+        if(remainingPoints > 0){
+          let pv = priorityQueue.shift();
+          EVHashmap[pv].state = "charging";
+          remainingPoints--;
+        }
+      }
     //  handle vehicle leaving
     if(EVHashmap[v] && EVHashmap[v].state && EVHashmap[v].state !== "leaving"){
       switch (EVHashmap[v].state) {
         case "charging":{
-          chargingPoints--;
+          remainingPoints++;
           EVHashmap[v].state = "leaving";
           unchargedValue--;
           break;
@@ -32,16 +40,6 @@ function getUnchargedVehicles(history, chargingPoints){
     }
 
     else{
-
-      // handle priority vehicles
-      if(priorityQueue.length){
-        if(remainingPoints > 0){
-          let pv = priorityQueue.shift;
-          EVHashmap[pv].state = "charging";
-          remainingPoints--;
-          unchargedValue++;
-        }
-      }
 
       // handle vehicle entry
       if(remainingPoints > 0){
