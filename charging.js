@@ -14,7 +14,7 @@ function getUnchargedVehicles(history, chargingPoints){
   history.map(v => {
 
     //  handle vehicle leaving
-    if(EVHashmap[v] && EVHashmap[v].state){
+    if(EVHashmap[v] && EVHashmap[v].state && EVHashmap[v].state !== "leaving"){
       switch (EVHashmap[v].state) {
         case "charging":{
           chargingPoints--;
@@ -24,9 +24,9 @@ function getUnchargedVehicles(history, chargingPoints){
         }
         case "waiting":{
           EVHashmap[v].state = "leaving";
-            priorityQueue.shift();
-      }
-      default:
+          priorityQueue.shift();
+        }
+        default:
           break;
       }
     }
@@ -46,7 +46,7 @@ function getUnchargedVehicles(history, chargingPoints){
       // handle vehicle entry
       if(remainingPoints > 0){
         EVHashmap[v] = {state: "charging"};
-        chargingPoints--;
+        remainingPoints--;
         unchargedValue++;
       }
 
